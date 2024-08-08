@@ -1,6 +1,6 @@
 import React from "react";
 
-function MainComponent() {
+function MainContent() {
   return (
     <main>
       <main>
@@ -9,4 +9,4 @@ function MainComponent() {
     </main>
   );
 }
-export default MainComponent;
+export default MainContent;
