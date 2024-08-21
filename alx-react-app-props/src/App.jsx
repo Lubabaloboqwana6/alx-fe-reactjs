@@ -1,5 +1,5 @@
-import ProfilePage from "./ProfilePage";
-import UserContext from "./UserContext";
+import ProfilePage from "./components/ProfilePage";
+import UserContext from "./components/UserContext";
 
 function App() {
   const userData = {
