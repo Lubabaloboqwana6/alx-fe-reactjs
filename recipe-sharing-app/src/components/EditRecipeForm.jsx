@@ -6,8 +6,8 @@ const EditRecipeForm = ({ recipe, toggleEditForm }) => {
   const [title, setTitle] = useState(recipe.title);
   const [description, setDescription] = useState(recipe.description);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = (event) => {
+    event.preventDefault(); // Prevent the default form submission behavior
     updateRecipe(recipe.id, { title, description });
     toggleEditForm(); // Close the form after submitting
   };
