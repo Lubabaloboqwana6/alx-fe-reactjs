@@ -1,19 +1,39 @@
-// RecipeList component
+import React from "react";
+import { useParams } from "react-router-dom";
 import { useRecipeStore } from "./recipeStore";
+import EditRecipeForm from "./EditRecipeForm";
+import DeleteRecipeButton from "./DeleteRecipeButton";
 
-const RecipeList = () => {
-  const recipes = useRecipeStore((state) => state.recipes);
+const RecipeDetails = () => {
+  const { id } = useParams();
+  const recipe = useRecipeStore((state) =>
+    state.recipes.find((recipe) => recipe.id === parseInt(id))
+  );
+
+  const [isEditing, setIsEditing] = useState(false);
+
+  if (!recipe) {
+    return <div>Recipe not found.</div>;
+  }
+
+  const toggleEditForm = () => {
+    setIsEditing(!isEditing);
+  };
 
   return (
     <div>
-      {recipes.map((recipe) => (
-        <div key={recipe.id}>
-          <h3>{recipe.title}</h3>
-          <p>{recipe.description}</p>
-        </div>
-      ))}
+      <h1>{recipe.title}</h1>
+      <p>{recipe.description}</p>
+
+      {isEditing ? (
+        <EditRecipeForm recipe={recipe} toggleEditForm={toggleEditForm} />
+      ) : (
+        <button onClick={toggleEditForm}>Edit Recipe</button>
+      )}
+
+      <DeleteRecipeButton recipeId={parseInt(id)} />
     </div>
   );
 };
 
-export default RecipeList;
+export default RecipeDetails;
