@@ -1,39 +1,25 @@
-import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import React from "react";
+import { Link } from "react-router-dom";
 import useRecipeStore from "./recipeStore";
-import EditRecipeForm from "./EditRecipeForm";
-import DeleteRecipeButton from "./DeleteRecipeButton";
 
-const RecipeDetails = () => {
-  const { id } = useParams();
-  const recipe = useRecipeStore((state) =>
-    state.recipes.find((recipe) => recipe.id === parseInt(id))
-  );
-
-  const [isEditing, setIsEditing] = useState(false);
-
-  if (!recipe) {
-    return <div>Recipe not found.</div>;
-  }
-
-  const toggleEditForm = () => {
-    setIsEditing(!isEditing);
-  };
+const RecipeList = () => {
+  const recipes = useRecipeStore((state) => state.filteredRecipes);
 
   return (
     <div>
-      <h1>{recipe.title}</h1>
-      <p>{recipe.description}</p>
-
-      {isEditing ? (
-        <EditRecipeForm recipe={recipe} toggleEditForm={toggleEditForm} />
+      {recipes.length > 0 ? (
+        recipes.map((recipe) => (
+          <div key={recipe.id} style={{ marginBottom: "20px" }}>
+            <h2>{recipe.title}</h2>
+            <p>{recipe.description}</p>
+            <Link to={`/recipe/${recipe.id}`}>View Details</Link>
+          </div>
+        ))
       ) : (
-        <button onClick={toggleEditForm}>Edit Recipe</button>
+        <p>No recipes found.</p>
       )}
-
-      <DeleteRecipeButton recipeId={parseInt(id)} />
     </div>
   );
 };
 
-export default RecipeDetails;
+export default RecipeList;
