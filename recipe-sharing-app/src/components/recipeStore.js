@@ -2,27 +2,28 @@ import { create } from "zustand";
 
 const useRecipeStore = create((set) => ({
   recipes: [],
+  searchTerm: "",
+  ingredientFilter: "",
+  timeFilter: "",
 
-  // Action: Add a new recipe
-  addRecipe: (newRecipe) =>
-    set((state) => ({ recipes: [...state.recipes, newRecipe] })),
+  setSearchTerm: (term) => set({ searchTerm: term }),
+  setIngredientFilter: (ingredient) => set({ ingredientFilter: ingredient }),
+  setTimeFilter: (time) => set({ timeFilter: time }),
 
-  // Action: Set the entire recipes array
-  setRecipes: (recipes) => set({ recipes }),
-
-  // Action: Delete a recipe by name
-  deleteRecipe: (recipeName) =>
+  filteredRecipes: [],
+  filterRecipes: () =>
     set((state) => ({
-      recipes: state.recipes.filter((recipe) => recipe.name !== recipeName),
-    })),
-
-  // Action: Update a recipe by name
-  updateRecipe: (recipeName, updatedRecipe) =>
-    set((state) => ({
-      recipes: state.recipes.map((recipe) =>
-        recipe.name === recipeName ? { ...recipe, ...updatedRecipe } : recipe
-      ),
+      filteredRecipes: state.recipes.filter((recipe) => {
+        const matchesSearch = recipe.title
+          .toLowerCase()
+          .includes(state.searchTerm.toLowerCase());
+        const matchesIngredient = state.ingredientFilter
+          ? recipe.ingredients.includes(state.ingredientFilter)
+          : true;
+        const matchesTime = state.timeFilter
+          ? recipe.cookingTime <= state.timeFilter
+          : true;
+        return matchesSearch && matchesIngredient && matchesTime;
+      }),
     })),
 }));
-
-export default useRecipeStore;
