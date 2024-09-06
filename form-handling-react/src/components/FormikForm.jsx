@@ -2,7 +2,6 @@ import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
-// Define validation schema using Yup
 const validationSchema = Yup.object({
   username: Yup.string().required("Username is required"),
   email: Yup.string()
@@ -14,18 +13,15 @@ const validationSchema = Yup.object({
 });
 
 function FormikForm() {
-  // Initial values for the form fields
   const initialValues = {
     username: "",
     email: "",
     password: "",
   };
 
-  // Handle form submission
   const handleSubmit = (values, { resetForm }) => {
     console.log("Form submitted with data:", values);
 
-    // Optionally reset the form
     resetForm();
   };
 
