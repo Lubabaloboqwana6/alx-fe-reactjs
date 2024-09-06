@@ -13,9 +13,13 @@ function RegistrationForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Check if any field is empty
-    if (!username || !email || !password) {
-      setErrors("All fields are required.");
+    // Check if each field is empty
+    if (!username) {
+      setErrors("Username is required.");
+    } else if (!email) {
+      setErrors("Email is required.");
+    } else if (!password) {
+      setErrors("Password is required.");
     } else {
       setErrors(""); // Clear errors if all fields are filled
 
