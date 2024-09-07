@@ -1,10 +1,10 @@
-// App.js
 import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./components/Home";
 import About from "./components/About";
 import Contact from "./components/Contact";
 import Profile from "./components/Profile";
+import BlogPost from "./components/BlogPost"; // Import BlogPost
 import Header from "./components/Header";
 import ProtectedRoute from "./components/ProtectedRoute";
 
@@ -30,6 +30,8 @@ function App() {
               </ProtectedRoute>
             }
           />
+          <Route path="/blog/:id" element={<BlogPost />} />{" "}
+          {/* Dynamic Route */}
         </Routes>
       </div>
     </Router>
