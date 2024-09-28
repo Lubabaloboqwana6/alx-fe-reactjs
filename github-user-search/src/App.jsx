@@ -3,6 +3,7 @@ import Homepage from "./components/Homepage";
 import React from "react";
 import Aboutpage from "./components/Aboutpage";
 import ReactDOM from "react-dom";
+import Search from "./components/Search";
 import {
   Route,
   Link,
@@ -30,6 +31,7 @@ function App() {
           <Route path="about" element={<Aboutpage />} />
         </Routes>
       </BrowserRouter>
+      <Search />
     </>
   );
 }
