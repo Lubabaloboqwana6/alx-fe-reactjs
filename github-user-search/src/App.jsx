@@ -1,9 +1,9 @@
-import "./App.css";
 import Homepage from "./components/Homepage";
 import React from "react";
 import Aboutpage from "./components/Aboutpage";
 import ReactDOM from "react-dom";
 import Search from "./components/Search";
+import index from "./index.css";
 import {
   Route,
   Link,
