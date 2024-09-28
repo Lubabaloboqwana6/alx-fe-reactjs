@@ -5,7 +5,7 @@ const Search = () => {
   const [username, setUsername] = useState("");
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -14,17 +14,17 @@ const Search = () => {
       return;
     }
 
-    setLoading(true); // Set loading state to true before the API call
-    setError(null); // Clear any previous errors
+    setLoading(true);
+    setError(""); // Reset error state before making a request
 
     try {
-      const data = await fetchUserData(username); // Call the API service
-      setUserData(data); // Set the fetched user data
+      const data = await fetchUserData(username);
+      setUserData(data);
     } catch (error) {
-      setError("Looks like we can’t find the user."); // Set error message
-      setUserData(null); // Clear user data if there's an error
+      setError("Looks like we can't find the user."); // Set the error message here
+      setUserData(null); // Reset user data on error
     } finally {
-      setLoading(false); // Set loading state to false after the API call
+      setLoading(false);
     }
   };
 
@@ -43,8 +43,8 @@ const Search = () => {
         </button>
       </form>
       {loading && <p>Loading...</p>} {/* Show loading message */}
-      {error && <p>{error}</p>} {/* Show error message */}
-      {userData && (
+      {error && <p>{error}</p>} {/* Display error message */}
+      {userData && ( // Display user data if available
         <div className="user-info">
           <h2>{userData.login}</h2>
           <img
